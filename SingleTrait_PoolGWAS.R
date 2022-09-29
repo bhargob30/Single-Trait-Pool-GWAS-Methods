@@ -10,6 +10,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocMana
 BiocManager::install("snpStats", force = T)
 install.packages('PhenotypeSimulator')
 
+# now load the packages. If you don't have any of the below mentioned packages, install it accordingly.
 library(PhenotypeSimulator)
 library(dplyr)
 library(readr)
@@ -231,3 +232,12 @@ sum(parse_number(causal_snps)%in%temp)
 
 # find out the no. of false discoveries:-
 length(temp)-sum(parse_number(causal_snps)%in%temp)
+
+# plot the ROC curve and calculate AUC:-
+pred=prediction(stab.lasso[["max"]], as.numeric( colnames(genotypes) %in% causal_snps      ) )
+perf=performance(pred, "tpr", "fpr")
+auc=performance(pred, measure="auc")
+auc_value=auc@y.values[[1]] ## this is the AUC value
+
+plot(perf,  main="ROC Curve ", col.main="red")
+abline(a=0, b=1)  ## this will result in the ROC curve
