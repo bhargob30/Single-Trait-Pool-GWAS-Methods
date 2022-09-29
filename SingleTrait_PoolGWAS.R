@@ -136,7 +136,7 @@ colnames(allele_freq1)=SNPs
 
 # Now coming to regenerating the genotype data from 
 # these pooled allele frequencies. We compressed our genotype data to
-# allele frequencies. Now we will expand again by resampling.
+# allele frequencies. Now we will expand again by regeneration.
 # The ideal thing will be to regenerate same number of individuals
 # per cluster whose genotype we combined to get the allele 
 # frequency. 
@@ -177,7 +177,7 @@ colnames(data_regenerate)[2:ncol(data_regenerate)]=SNPs
 # But be sure to shuffle the data before applying to random forest
 
 
-#(7) Assign the available phenotypes to the regenerated genotypes (uniformly)
+#(7) Assign the available phenotypes to the regenerated genotypes in an arbitrary order
 
 # 'clusters_genphen_re' is a list with i th element denoting the a dataframe 
 # whose first column will be the phenotype observations for all the individuals
@@ -229,5 +229,5 @@ causal_snps=colnames(phenotype[["phenoComponentsIntermediate"]][["genFixed"]][["
 # find out how many of the causal SNPs are selected by stability selection
 sum(parse_number(causal_snps)%in%temp)
 
-# find out the no of false discoveries:-
+# find out the no. of false discoveries:-
 length(temp)-sum(parse_number(causal_snps)%in%temp)
