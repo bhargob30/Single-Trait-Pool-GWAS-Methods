@@ -211,9 +211,9 @@ data_combined_re=data_combined_re[sample(1:n0, size=n0),] # shuffling the rows
 x=data_combined_re[,2:ncol(data_regenerate)] # the feature matrix
 y=data_combined_re$y # the response
 
-# perform lasso with stability selection.
-# (*) Original stability selection 
-# ( For CPSS, just change sampling.type="SS" & assumption="r-concave")
+# Perform lasso with stability selection.
+# The code presented below is for performing Original stability selection (OSS) with 'tau'=0.8 and 'PFER'=0.5.
+# To appply CPSS just take change sampling.type="SS" & assumption="r-concave" in the following code. Rest all parameters should not be changed.
 
 stab.lasso=stabsel(x=x, y=y, intercept=F, fitfun=glmnet.lasso,
                    cutoff=0.8, PFER=0.5, assumption="none",
